@@ -31,6 +31,7 @@ public class InitialUserSetup implements CommandLineRunner {
 
         if (!bootstrapUsername.isEmpty() && !bootstrapPassword.isEmpty()) {
             // Use findByUsername so this is idempotent on every restart - upsert the bootstrap user
+            userRepository.findByUsername(bootstrapUsername).ifPresentOrElse(
                 existingUser -> {
                     System.out.println("[InitialUserSetup] Bootstrap user already exists: " + bootstrapUsername);
                     existingUser.setPasswordHash(passwordEncoder.encode(bootstrapPassword));
