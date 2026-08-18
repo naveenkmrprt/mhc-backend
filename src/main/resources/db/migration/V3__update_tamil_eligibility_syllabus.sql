@@ -1,3 +1,6 @@
+-- Alter the name column to TEXT to accommodate longer syllabus topics
+ALTER TABLE syllabus_subtopics ALTER COLUMN name TYPE TEXT;
+
 -- First delete progress data associated with these subtopics to prevent foreign key violations
 DELETE FROM topic_progress WHERE topic_id IN (SELECT id FROM syllabus_subtopics WHERE category_id = 1);
 
